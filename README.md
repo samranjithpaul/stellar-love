@@ -10,7 +10,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
-[Live Demo](#) • [Documentation](#getting-started) • [Report Bug](https://github.com/yourusername/stellar-love/issues) • [Request Feature](https://github.com/yourusername/stellar-love/issues)
+[Live Demo](#) • [Documentation](#getting-started) • [Report Bug](https://github.com/samranjithpaul/stellar-love/issues) • [Request Feature](https://github.com/samranjithpaul/stellar-love/issues)
 
 </div>
 
@@ -40,7 +40,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/stellar-love.git
+   git clone https://github.com/samranjithpaul/stellar-love.git
    cd stellar-love
    ```
 
@@ -174,7 +174,7 @@ npm start
 
 ### Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/stellar-love)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/samranjithpaul/stellar-love)
 
 Or use the CLI:
 
@@ -245,8 +245,10 @@ This project is created as a personal gift. Feel free to use and modify for your
 
 ## 📞 Contact & Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/stellar-love/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/stellar-love/discussions)
+- **GitHub**: [@samranjithpaul](https://github.com/samranjithpaul)
+- **Email**: [samranjithpaul71@gmail.com](mailto:samranjithpaul71@gmail.com)
+- **Issues**: [GitHub Issues](https://github.com/samranjithpaul/stellar-love/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/samranjithpaul/stellar-love/discussions)
 
 ---
 
