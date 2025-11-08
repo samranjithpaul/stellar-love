@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "The Night We Met",
+    "message": "In the quiet darkness, our eyes met and time stood still. That moment, wrapped in stardust and possibility, became the first light in our constellation.",
+    "image": null,
+    "position": { "x": -2, "y": 1, "z": -3 }
+  },
+  {
+    "id": 2,
+    "name": "Our First Laugh",
+    "message": "Your laughter echoed through the universe, a melody that made every star shine brighter. I knew then that my heart had found its home.",
+    "image": null,
+    "position": { "x": 2, "y": 0.5, "z": -2.5 }
+  },
+  {
+    "id": 3,
+    "name": "Morning Light",
+    "message": "Every sunrise with you feels like witnessing the birth of a new galaxy—full of warmth, wonder, and infinite possibility.",
+    "image": null,
+    "position": { "x": -1.5, "y": -1, "z": -4 }
+  },
+  {
+    "id": 4,
+    "name": "Silent Conversations",
+    "message": "In the spaces between words, we speak a language only our souls understand. A connection deeper than the cosmos itself.",
+    "image": null,
+    "position": { "x": 1, "y": 1.5, "z": -3.5 }
+  },
+  {
+    "id": 5,
+    "name": "Dancing in Starlight",
+    "message": "When we dance, it's as if the stars themselves are choreographing our movements, writing poetry in motion across the night sky.",
+    "image": null,
+    "position": { "x": 0, "y": -0.5, "z": -5 }
+  },
+  {
+    "id": 6,
+    "name": "Your Smile",
+    "message": "Your smile is a supernova—brilliant, beautiful, and capable of illuminating the darkest corners of my universe.",
+    "image": null,
+    "position": { "x": -2.5, "y": 0, "z": -4.5 }
+  },
+  {
+    "id": 7,
+    "name": "Whispers in the Dark",
+    "message": "Your whispers carry the secrets of distant galaxies, and in them, I find the map to your heart—my favorite constellation.",
+    "image": null,
+    "position": { "x": 2.5, "y": -1.5, "z": -3 }
+  },
+  {
+    "id": 8,
+    "name": "Forever Begins",
+    "message": "Forever isn't long enough when it's with you. But if forever is what we have, then forever is what I'll choose, again and again.",
+    "image": null,
+    "position": { "x": 0, "y": 2, "z": -4 }
+  }
+]
