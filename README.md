@@ -10,7 +10,8 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
-[Live Demo](#) • [Documentation](#getting-started) • [Report Bug](https://github.com/samranjithpaul/stellar-love/issues) • [Request Feature](https://github.com/samranjithpaul/stellar-love/issues)
+[Live Demo](https://mikeyverse.vercel.app/  
+) • [Documentation](#getting-started) • [Report Bug](https://github.com/samranjithpaul/stellar-love/issues) • [Request Feature](https://github.com/samranjithpaul/stellar-love/issues)
 
 </div>
 
