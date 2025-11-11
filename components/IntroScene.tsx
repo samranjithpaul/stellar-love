@@ -99,6 +99,9 @@ export default function IntroScene({ onComplete }: IntroSceneProps) {
         </motion.h1>
         <motion.h2
           className="text-3xl md:text-5xl font-light text-purple-300 text-glow-purple"
+          
+          
+          
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2, delay: 2.5 }}

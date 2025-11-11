@@ -3,10 +3,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface Star {
+  
   id: number;
   name: string;
   message: string;
   image: string | null;
+
   position: { x: number; y: number; z: number };
 }
 
@@ -40,11 +42,12 @@ export default function StarModal({ star, isOpen, onClose }: StarModalProps) {
             exit={{ opacity: 0, scale: 0.8 }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="glass rounded-3xl p-8 md:p-12 max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="glass rounded-3xl p-8 md:p-12 max-w-2xl w-full max-h-[80vh] overflow-y-auto relative">
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors text-2xl"
+                className="absolute top-4 right-4 z-10 text-white/70 hover:text-white transition-colors text-3xl md:text-4xl font-light w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 backdrop-blur-sm"
+                aria-label="Close modal"
               >
                 ×
               </button>
@@ -55,13 +58,7 @@ export default function StarModal({ star, isOpen, onClose }: StarModalProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
               >
-                <h2 className="text-3xl md:text-4xl font-light text-purple-300 mb-6 text-glow-purple">
-                  {star.name}
-                </h2>
-                <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
-                  {star.message}
-                </p>
-                {star.image && (
+                 {star.image && (
                   <div className="mt-6 rounded-2xl overflow-hidden">
                     <img
                       src={star.image}
@@ -70,6 +67,15 @@ export default function StarModal({ star, isOpen, onClose }: StarModalProps) {
                     />
                   </div>
                 )}
+                <h2 className="text-3xl md:text-4xl font-light text-purple-300 mb-10 mt-6 text-glow-purple">
+  {star.name}
+</h2>
+
+
+                <p className="text-lg md:text-xl text-white/90 leading-relaxed font-light">
+                  {star.message}
+                </p>
+               
               </motion.div>
 
               {/* Holographic effect lines */}

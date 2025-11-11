@@ -25,8 +25,10 @@ export default function Home() {
   const [selectedStar, setSelectedStar] = useState<Star | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [secretSequence, setSecretSequence] = useState<number[]>([]);
+  const [allStarsDiscovered, setAllStarsDiscovered] = useState(false);
   const { playAmbient, stopAmbient, playClick } = useAudio();
 
+  // 🔊 Handle background audio
   useEffect(() => {
     if (currentScene === 'starfield') {
       playAmbient();
@@ -35,6 +37,7 @@ export default function Home() {
     }
   }, [currentScene, playAmbient, stopAmbient]);
 
+  // 💫 Handle star click
   const handleStarClick = (star: Star) => {
     if (clickedStars.has(star.id)) return;
 
@@ -43,51 +46,52 @@ export default function Home() {
     setSelectedStar(star);
     setIsModalOpen(true);
 
-    // Check for secret sequence (clicking stars 1, 3, 5 in order)
+    // Secret sequence: 1, 3, 5
     setSecretSequence((prev) => {
       const newSeq = [...prev, star.id];
-      if (newSeq.length >= 3) {
-        const lastThree = newSeq.slice(-3);
-        if (lastThree[0] === 1 && lastThree[1] === 3 && lastThree[2] === 5) {
-          console.log('Secret constellation discovered!');
-          // You can add special logic here
-        }
+      if (newSeq.slice(-3).join(',') === '1,3,5') {
+        console.log('✨ Secret constellation discovered!');
       }
       return newSeq;
     });
 
-    // Check if all stars are clicked
+    // ✅ Check if all stars are clicked
     if (clickedStars.size + 1 === starsData.length) {
-      setTimeout(() => {
-        setCurrentScene('finale');
-      }, 2000);
+      console.log('🌟 All stars discovered! Waiting for user to close the final modal...');
+      setAllStarsDiscovered(true);
     }
   };
 
+  // 🪐 Handle modal close
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedStar(null);
+
+    // ✅ If this was the final star, jump directly to ThankYouScene
+    if (allStarsDiscovered) {
+      console.log('💫 All stars complete — moving to ThankYouScene...');
+      setTimeout(() => {
+        setCurrentScene('finale');
+      }, 1000); // small delay for smooth transition
+    }
   };
 
-  const handleIntroComplete = () => {
-    setCurrentScene('starfield');
-  };
-
-  const handleFinaleComplete = () => {
-    setCurrentScene('thankyou');
-  };
-
+  // 🚀 Scene transitions
+  const handleIntroComplete = () => setCurrentScene('starfield');
+  const handleFinaleComplete = () => setCurrentScene('thankyou');
   const handleRestart = () => {
     setCurrentScene('intro');
     setClickedStars(new Set());
     setSelectedStar(null);
     setSecretSequence([]);
+    setAllStarsDiscovered(false);
   };
 
+  // 🌌 Render scenes
   return (
     <main className="fixed inset-0 overflow-hidden">
       {currentScene === 'intro' && <IntroScene onComplete={handleIntroComplete} />}
-      
+
       {currentScene === 'starfield' && (
         <>
           <Starfield clickedStars={clickedStars} onStarClick={handleStarClick} />
@@ -100,14 +104,14 @@ export default function Home() {
           <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-30 glass rounded-full px-6 py-3">
             <p className="text-white/80 text-sm">
               {clickedStars.size} / {starsData.length} stars discovered
-          </p>
-        </div>
+            </p>
+          </div>
         </>
       )}
 
       {currentScene === 'finale' && <FinaleScene onComplete={handleFinaleComplete} />}
-      
+
       {currentScene === 'thankyou' && <ThankYouScene onRestart={handleRestart} />}
-      </main>
+    </main>
   );
 }

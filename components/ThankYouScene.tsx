@@ -58,11 +58,17 @@ export default function ThankYouScene({ onRestart }: ThankYouSceneProps) {
           {/* Heart shape made of particles */}
           <div className="relative w-64 h-64">
             {Array.from({ length: 50 }).map((_, i) => {
-              const angle = (i / 50) * Math.PI * 2;
-              const radius = 80 + Math.sin(angle * 2) * 30;
-              const x = Math.cos(angle) * radius;
-              const y = Math.sin(angle) * radius;
-              
+              // Use a classic parametric heart curve so particles form a real heart
+              // Parametric: x = 16 sin^3(t), y = 13 cos(t) - 5 cos(2t) - 2 cos(3t) - cos(4t)
+              const t = (i / 50) * Math.PI * 2;
+              const hx = 16 * Math.pow(Math.sin(t), 3);
+              const hy = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
+
+              // scale and flip Y so the heart appears upright and sized to fit the container
+              const scale = 3.2; // adjust for desired size
+              const x = hx * scale;
+              const y = -hy * scale; // negate so positive goes down in DOM coordinates
+
               return (
                 <motion.div
                   key={i}

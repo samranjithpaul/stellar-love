@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useMemo, useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Points, PointMaterial, Line, OrbitControls, Stars } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
@@ -20,42 +20,87 @@ interface StarfieldProps {
   onStarClick: (star: Star) => void;
 }
 
+// ✅ New version of background starfield with round glowing dots
 function StarField() {
   const ref = useRef<THREE.Points>(null);
-  const [isMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
-  
+  const [isMobile, setIsMobile] = useState(false);
+  const [starTexture, setStarTexture] = useState<THREE.Texture | null>(null);
+
+  useEffect(() => {
+    // Responsive check
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // ✅ Generate a circular glowing texture dynamically
+  useEffect(() => {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d')!;
+    
+    // Draw a soft circular gradient
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, 'rgba(255,255,255,1)');
+    gradient.addColorStop(0.4, 'rgba(255,255,255,0.6)');
+    gradient.addColorStop(1, 'rgba(255,255,255,0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true;
+    setStarTexture(texture);
+  }, []);
+
   const [positions] = useMemo(() => {
     const count = isMobile ? 2500 : 5000;
-    const positions = new Float32Array(count * 3);
+    const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 20;
+      arr[i * 3] = (Math.random() - 0.5) * 40;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 40;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 40;
     }
-    return [positions];
+    return [arr];
   }, [isMobile]);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (ref.current) {
       ref.current.rotation.x += delta * 0.05;
       ref.current.rotation.y += delta * 0.025;
     }
   });
 
+  if (!starTexture) return null; // wait for texture to be created
+
   return (
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
+        map={starTexture}
+        alphaMap={starTexture}
         transparent
         color="#ffffff"
-        size={isMobile ? 0.03 : 0.02}
-        sizeAttenuation={true}
+        size={isMobile ? 0.05 : 0.03}
+        sizeAttenuation
         depthWrite={false}
+        blending={THREE.AdditiveBlending}
       />
     </Points>
   );
 }
 
-function InteractiveStar({ star, isClicked, onStarClick }: { star: Star; isClicked: boolean; onStarClick: (star: Star) => void }) {
+
+function InteractiveStar({
+  star,
+  isClicked,
+  onStarClick,
+}: {
+  star: Star;
+  isClicked: boolean;
+  onStarClick: (star: Star) => void;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -81,15 +126,11 @@ function InteractiveStar({ star, isClicked, onStarClick }: { star: Star; isClick
         onPointerOver={(e) => {
           e.stopPropagation();
           setHovered(true);
-          if (typeof document !== 'undefined') {
-            document.body.style.cursor = 'pointer';
-          }
+          document.body.style.cursor = 'pointer';
         }}
         onPointerOut={() => {
           setHovered(false);
-          if (typeof document !== 'undefined') {
-            document.body.style.cursor = 'auto';
-          }
+          document.body.style.cursor = 'auto';
         }}
       >
         <sphereGeometry args={[0.15, 16, 16]} />
@@ -99,7 +140,7 @@ function InteractiveStar({ star, isClicked, onStarClick }: { star: Star; isClick
           emissiveIntensity={isClicked ? 2 : hovered ? 1.5 : 1}
         />
       </mesh>
-      {/* Glow effect */}
+      {/* Glow halo */}
       <mesh>
         <sphereGeometry args={[0.25, 16, 16]} />
         <meshBasicMaterial
@@ -131,29 +172,24 @@ function ConstellationLines({ clickedStars }: { clickedStars: Set<number> }) {
   const clickedStarsArray = Array.from(clickedStars);
   const lines: Array<[number, number]> = [];
 
-  // Connect clicked stars in order
   for (let i = 0; i < clickedStarsArray.length - 1; i++) {
-    const star1Id = clickedStarsArray[i];
-    const star2Id = clickedStarsArray[i + 1];
-    lines.push([star1Id, star2Id]);
+    lines.push([clickedStarsArray[i], clickedStarsArray[i + 1]]);
   }
 
   return (
     <>
       {lines.map(([id1, id2], index) => {
-        const star1 = starsData.find((s) => s.id === id1);
-        const star2 = starsData.find((s) => s.id === id2);
-        if (!star1 || !star2) return null;
-
-        const points = [
-          new THREE.Vector3(star1.position.x, star1.position.y, star1.position.z),
-          new THREE.Vector3(star2.position.x, star2.position.y, star2.position.z),
-        ];
+        const s1 = starsData.find((s) => s.id === id1);
+        const s2 = starsData.find((s) => s.id === id2);
+        if (!s1 || !s2) return null;
 
         return (
           <Line
             key={`${id1}-${id2}-${index}`}
-            points={points}
+            points={[
+              new THREE.Vector3(s1.position.x, s1.position.y, s1.position.z),
+              new THREE.Vector3(s2.position.x, s2.position.y, s2.position.z),
+            ]}
             color="#ffd700"
             lineWidth={2}
             dashed={false}
@@ -166,7 +202,6 @@ function ConstellationLines({ clickedStars }: { clickedStars: Set<number> }) {
 
 function CameraController() {
   useFrame(({ camera }) => {
-    // Slow camera drift for cinematic effect
     camera.position.x += Math.sin(Date.now() * 0.0001) * 0.0001;
     camera.position.y += Math.cos(Date.now() * 0.00015) * 0.0001;
   });
@@ -177,9 +212,7 @@ export default function Starfield({ clickedStars, onStarClick }: StarfieldProps)
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -188,11 +221,9 @@ export default function Starfield({ clickedStars, onStarClick }: StarfieldProps)
   return (
     <div className="fixed inset-0 bg-black">
       <Canvas
-        camera={{ position: [0, 0, 5], fov: isMobile ? 80 : 75 }}
+        camera={{ position: [0, 0, 15], fov: isMobile ? 80 : 75 }}
         gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }) => {
-          gl.setClearColor('#000000', 1);
-        }}
+        onCreated={({ gl }) => gl.setClearColor('#000000', 1)}
         dpr={Math.min(window.devicePixelRatio, 2)}
       >
         {/* Lighting */}
@@ -202,7 +233,15 @@ export default function Starfield({ clickedStars, onStarClick }: StarfieldProps)
 
         {/* Background stars */}
         <StarField />
-        <Stars radius={100} depth={50} count={isMobile ? 1000 : 2000} factor={4} saturation={0} fade speed={1} />
+        <Stars
+          radius={100}
+          depth={50}
+          count={isMobile ? 1000 : 2000}
+          factor={4}
+          saturation={0}
+          fade
+          speed={1}
+        />
 
         {/* Interactive stars */}
         <InteractiveStars clickedStars={clickedStars} onStarClick={onStarClick} />
@@ -210,16 +249,16 @@ export default function Starfield({ clickedStars, onStarClick }: StarfieldProps)
         {/* Constellation lines */}
         {clickedStars.size > 1 && <ConstellationLines clickedStars={clickedStars} />}
 
-        {/* Camera controller */}
+        {/* Camera drift */}
         <CameraController />
 
-        {/* Controls */}
+        {/* Orbit controls */}
         <OrbitControls
           enableZoom={!isMobile}
           enablePan={!isMobile}
-          enableRotate={true}
-          minDistance={3}
-          maxDistance={15}
+          enableRotate
+          minDistance={1}
+          maxDistance={18}
           autoRotate={false}
           autoRotateSpeed={0.5}
           touches={{
@@ -228,7 +267,7 @@ export default function Starfield({ clickedStars, onStarClick }: StarfieldProps)
           }}
         />
 
-        {/* Post-processing */}
+        {/* Post effects */}
         <EffectComposer>
           <Bloom intensity={0.5} luminanceThreshold={0.9} />
           <Vignette eskil={false} offset={0.1} darkness={0.5} />

@@ -1,58 +1,65 @@
 [
   {
     "id": 1,
-    "name": "The Night We Met",
-    "message": "In the quiet darkness, our eyes met and time stood still. That moment, wrapped in stardust and possibility, became the first light in our constellation.",
-    "image": null,
-    "position": { "x": -2, "y": 1, "z": -3 }
+    "name": "Arcturus",
+    "message": "You were my first sunrise after a long night — soft, bright, and impossible to forget. Even galaxies would envy your light, Mikey.",
+    "image": "images/image1.png",
+    "position": { "x": 4.88, "y": 1.24, "z": -11.48 }
   },
   {
     "id": 2,
-    "name": "Our First Laugh",
-    "message": "Your laughter echoed through the universe, a melody that made every star shine brighter. I knew then that my heart had found its home.",
-    "image": null,
-    "position": { "x": 2, "y": 0.5, "z": -2.5 }
+    "name": "Canopus",
+    "message": "We were chaos and calm at once — arguing, laughing, teasing, and still finding our way back like gravity does to stars.",
+    "image": "images/image2.png",
+    "position": { "x": 1.8, "y": -11.0, "z": -7.28 }
   },
   {
     "id": 3,
-    "name": "Morning Light",
-    "message": "Every sunrise with you feels like witnessing the birth of a new galaxy—full of warmth, wonder, and infinite possibility.",
-    "image": null,
-    "position": { "x": -1.5, "y": -1, "z": -4 }
+    "name": "Sirius",
+    "message": "Your smile still has the power to stop whole constellations. I don’t need a reason to care — I just do, endlessly.",
+    "image": "images/image3.png",
+    "position": { "x": 4.64, "y": -1.16, "z": -9.36 }
   },
   {
     "id": 4,
-    "name": "Silent Conversations",
-    "message": "In the spaces between words, we speak a language only our souls understand. A connection deeper than the cosmos itself.",
-    "image": null,
-    "position": { "x": 1, "y": 1.5, "z": -3.5 }
+    "name": "Vega",
+    "message": "You once made even small moments feel infinite — like we were two kids stealing time from the universe and calling it love.",
+    "image": "images/image4.png",
+    "position": { "x": -5.12, "y": 6.72, "z": 10.6 }
   },
   {
     "id": 5,
-    "name": "Dancing in Starlight",
-    "message": "When we dance, it's as if the stars themselves are choreographing our movements, writing poetry in motion across the night sky.",
-    "image": null,
-    "position": { "x": 0, "y": -0.5, "z": -5 }
+    "name": "Rigel",
+    "message": "Sometimes I still hear your laugh echoing in my head — loud, wild, full of life. You made ordinary days glow like starlight.",
+    "image": "images/image5.png",
+    "position": { "x": 2.92, "y": -0.68, "z": -13.84 }
   },
   {
     "id": 6,
-    "name": "Your Smile",
-    "message": "Your smile is a supernova—brilliant, beautiful, and capable of illuminating the darkest corners of my universe.",
-    "image": null,
-    "position": { "x": -2.5, "y": 0, "z": -4.5 }
+    "name": "Betelgeuse",
+    "message": "You had that rare energy — a mix of fire and calm. Even when you were angry, I loved that spark. It made you real, Mikey.",
+    "image": "images/image6.png",
+    "position": { "x": 3.36, "y": 0.52, "z": -11.16 }
   },
   {
     "id": 7,
-    "name": "Whispers in the Dark",
-    "message": "Your whispers carry the secrets of distant galaxies, and in them, I find the map to your heart—my favorite constellation.",
-    "image": null,
-    "position": { "x": 2.5, "y": -1.5, "z": -3 }
+    "name": "Altair",
+    "message": "If love had a rhythm, ours would’ve been laughter in quiet rooms and chaos in public — perfectly offbeat, perfectly us.",
+    "image": "images/image7.png",
+    "position": { "x": -11.16, "y": 1.04, "z": 5.48 }
   },
   {
     "id": 8,
-    "name": "Forever Begins",
-    "message": "Forever isn't long enough when it's with you. But if forever is what we have, then forever is what I'll choose, again and again.",
-    "image": null,
-    "position": { "x": 0, "y": 2, "z": -4 }
+    "name": "Aldebaran",
+    "message": "You taught me that real love isn’t about proving — it’s about feeling. Even now, I carry that peace. Saranghae, my Mikey.",
+    "image": "images/image8.png",
+    "position": { "x": 6.08, "y": 1.12, "z": -4.92 }
+  },
+  {
+    "id": 9,
+    "name": "Procyon",
+    "message": "If memories are stars, ours are the ones that never fade — a little wild, a little wrong, but forever shining when I think of you.",
+    "image": "images/image9.png",
+    "position": { "x": 6.72, "y": 0.36, "z": -5.8 }
   }
 ]
