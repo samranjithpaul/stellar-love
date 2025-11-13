@@ -1,5 +1,7 @@
 # 🌌 Stellar Love
 
+![Stellar Love](Images/stellarlove.png)
+
 <div align="center">
 
 **An immersive, cinematic 3D web experience that takes you on a journey through a galaxy of memories**
