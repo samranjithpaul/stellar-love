@@ -130,6 +130,14 @@ Each star’s appearance and animation mirrors its true character:
 - 🎯 **Touch Controls:** Optimized for mobile interaction.
 
 ---
+## Example Images:
+1. ![Stellar Love](Images/ine.png)
+2. ![Stellar Love](Images/two.png)
+3.![Stellar Love](Images/three.png)
+4.![Stellar Love](Images/four.png)
+5.![Stellar Love](Images/fivr.png)
+
+
 
 ## 🚀 Quick Start
 
